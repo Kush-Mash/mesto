@@ -35,11 +35,3 @@ function handleFormSubmit (evt) {
 }
 
 popupEditForm.addEventListener('submit', handleFormSubmit);
-
-
-
-
-
-// editCloseButton.addEventListener('click', () => {
-  // editPopup.classList.remove('popup_opened');
-// });
