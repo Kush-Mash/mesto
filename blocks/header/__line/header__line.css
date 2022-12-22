@@ -1,0 +1,14 @@
+.header__line {
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 37px;
+  opacity: 0.7;
+  border: none;
+  border-bottom: 1px solid #545454;
+}
+
+@media screen and (max-width: 520px) {
+  .header__line {
+    padding-top: 29px;
+  }
+}

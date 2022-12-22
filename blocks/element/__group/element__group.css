@@ -1,0 +1,29 @@
+.element__group {
+  background-image: url(../../../images/element-group.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 7%;
+  bottom: 8.31%;
+  width: 7.8%;
+  height: 1.48vw;
+  cursor: pointer;
+
+}
+
+.element__group:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 600px) {
+  .element__group {
+    width: 22px;
+    height: 19px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .element__group {
+    height: 5.94vw;
+  }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <script src="./scripts/index.js" defer></script>
+  <title>Место</title>
+</head>
+
+<body>
+  <div class="page">
+    <header class="header">
+      <img class="header__logo" alt="Логотип" src="./images/header-logo.svg">
+      <hr class="header__line">
+    </header>
+    <main class="content">
+      <section class="profile">
+        <img class="profile__avatar" alt="Аватар" src="./images/avatar.png">
+        <div class="profile__info">
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <p class="profile__subtitle">Исследователь океана</p>
+          <button class="profile__edit-button"></button>
+        </div>
+        <button class="profile__add-button"></button>
+      </section>
+      <section class="elements">
+        <ul class="elements__box">
+          <li class="element">
+            <img class="element__mask-group" alt="Живописные развалины" src="./images/kirill-pershin-karachaevsk-unsplash.jpg">
+            <h2 class="element__title">Карачаевск</h2>
+            <div class="element__group"></div>
+          </li>
+          <li class="element">
+            <img class="element__mask-group" alt="Гора вдали" src="./images/kirill-pershin-elbrus-unsplash.jpg">
+            <h2 class="element__title">Гора Эльбрус</h2>
+            <div class="element__group"></div>
+          </li>
+          <li class="element">
+            <img class="element__mask-group" alt="Горный пейзаж" src="./images/kirill-pershin-dombay-unsplash.jpg">
+            <h2 class="element__title">Домбай</h2>
+            <div class="element__group"></div>
+          </li>
+          <li class="element">
+            <img class="element__mask-group" alt="Гора вдали" src="./images/kirill-pershin-elbrus-unsplash.jpg">
+            <h2 class="element__title">Гора Эльбрус</h2>
+            <div class="element__group"></div>
+          </li>
+          <li class="element">
+            <img class="element__mask-group" alt="Горный пейзаж" src="./images/kirill-pershin-dombay-unsplash.jpg">
+            <h2 class="element__title">Домбай</h2>
+            <div class="element__group"></div>
+          </li>
+          <li class="element">
+            <img class="element__mask-group" alt="Живописные развалины" src="./images/kirill-pershin-karachaevsk-unsplash.jpg">
+            <h2 class="element__title">Карачаево-Черкесия</h2>
+            <div class="element__group"></div>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy;&nbsp;2022&nbsp;Mesto&nbsp;Russia</p>
+    </footer>
+  </div>
+
+  <div class="popup">
+    <div class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__edit-form" name="edit-form-about-user">
+        <input class="popup__field popup__field_name" type="text">
+        <hr class="popup__line">
+        <input class="popup__field popup__field_job" type="text">
+        <hr class="popup__line">
+        <button class="popup__submit-button" type='submit'>Сохранить</button>
+      </form>
+      <button class="popup__close-button"></button>
+    </div>
+  </div>
+</body>
+
+</html>
