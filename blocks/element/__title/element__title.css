@@ -1,53 +1,13 @@
 .element__title {
   margin: 0;
-  padding: 6.93% 26% 0 7.45%;
-  color: black;
+  padding-left: 21px;
+  max-width: 200px;
+  color: #000000;
   font-weight: 900;
   font-size: 24px;
   line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-@media screen and (min-width: 1600px) {
-  .element__title {
-    font-size: 48px;
-  }
-}
-
-@media screen and (min-width: 1480px) {
-  .element__title {
-    font-size: 36px;
-  }
-}
-
-@media screen and (min-width: 1320px) {
-  .element__title {
-    font-size: 32px;
-  }
-}
-
-@media screen and (max-width: 960px) {
-  .element__title {
-    font-size: 18px;
-  }
-}
-
-@media screen and (max-width: 790px) {
-  .element__title {
-    font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .element__title {
-    font-size: 24px;
-  }
-}
-
-@media screen and (max-width: 520px) {
-  .element__title {
-    padding-top: 7.5%;
-  }
+  grid-area: title ;
 }

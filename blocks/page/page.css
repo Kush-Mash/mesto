@@ -5,8 +5,8 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   margin: 0;
-  background-color: black;
+  background-color: #000000;
   color: #FFFFFF;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   min-width: 320px;
   }

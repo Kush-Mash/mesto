@@ -1,24 +1,24 @@
 .profile {
   margin: 0 auto;
   padding-top: 40px;
-  width: calc(100vw - 2*15.63vw);
+  width: 880px;
   min-height: 120px;
   display: grid;
   grid-template-columns: repeat(2, minmax(min-content, max-content)) 1fr;
   align-items: center;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 920px) {
   .profile {
     padding-top: 41px;
-    width: 68.75vw;
+    width: calc(2*282px + 17px);
     display: flex;
     flex-direction: column;
   }
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 620px) {
   .profile {
-    width: 88.13vw;
+    width: 282px;
   }
 }
