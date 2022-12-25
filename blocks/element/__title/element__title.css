@@ -9,5 +9,5 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  grid-area: title ;
+  grid-area: title;
 }
