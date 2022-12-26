@@ -2,10 +2,10 @@
   background-image: url(../../../images/element-group.svg);
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: bottom left;
+  background-position: center center;
   background-color: transparent;
   width: 22px;
-  height: 23px;
+  height: 19px;
   margin-right: 20px;
   cursor: pointer;
   border: none;

@@ -18,8 +18,7 @@ function handleFormSubmit (evt) {
   closePopup();
 }
 
-editButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
+editButton.addEventListener('click', () => {
   editPopup.classList.add('popup_opened');
   nameInput.value = userName.textContent;
   jobInput.value = userJob.textContent;

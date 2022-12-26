@@ -10,4 +10,5 @@
   grid-template-areas:
   'mask-group mask-group'
   'title like';
+  align-items: baseline;
 }

@@ -3,7 +3,7 @@
   font-weight: 500;
   font-size: 42px;
   line-height: 1.14;
-  width: 100%;
+  max-width: 500px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -13,6 +13,7 @@
 @media screen and (max-width: 920px) {
   .profile__title {
     text-align: center;
+    max-width: 320px;
 }
 }
 
