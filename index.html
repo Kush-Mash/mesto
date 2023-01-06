@@ -25,7 +25,7 @@
       </section>
       <section class="elements">
         <ul class="elements__box">
-          <li class="element">
+          <!-- <li class="element">
             <img class="element__mask-group" alt="Живописные развалины" src="./images/kirill-pershin-karachaevsk-unsplash.jpg">
             <h2 class="element__title">Карачаевск</h2>
             <button class="element__group" type="button" aria-label="Нравится"></button>
@@ -54,7 +54,7 @@
             <img class="element__mask-group" alt="Живописные развалины" src="./images/kirill-pershin-karachaevsk-unsplash.jpg">
             <h2 class="element__title">Карачаево-Черкесия</h2>
             <button class="element__group" type="button" aria-label="Нравится"></button>
-          </li>
+          </li> -->
         </ul>
       </section>
     </main>
@@ -63,7 +63,7 @@
     </footer>
   </div>
 
-  <div class="popup">
+  <div class="popup popup_modify_user-info">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__edit-form" name="formAboutUser">
@@ -71,9 +71,28 @@
         <input class="popup__field popup__field_type_job" type="text" name="jobInput" placeholder="Статус">
         <button class="popup__submit-button" type="submit">Сохранить</button>
       </form>
-      <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+      <button class="popup__close-button popup__close-button_modify_user-info" type="button" aria-label="Закрыть"></button>
     </div>
   </div>
+  <div class="popup popup_modify_new-place">
+    <div class="popup__container">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__edit-form" name="formAboutPlace">
+        <input class="popup__field popup__field_type_title-place" type="text" name="nameInput" placeholder="Название">
+        <input class="popup__field popup__field_type_link-place" type="text" name="jobInput" placeholder="Ссылка на картинку">
+        <button class="popup__submit-button" type="submit">Создать</button>
+      </form>
+      <button class="popup__close-button popup__close-button_modify_new-place" type="button" aria-label="Закрыть"></button>
+    </div>
+  </div>
+
+  <template class="template-card">
+    <li class="element">
+      <img class="element__mask-group" alt="Ваша фотография места" src="">
+      <h2 class="element__title"></h2>
+      <button class="element__group" type="button" aria-label="Нравится"></button>
+    </li>
+  </template>
 
   <script src="./scripts/index.js" defer></script>
 
