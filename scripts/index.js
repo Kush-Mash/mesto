@@ -74,15 +74,12 @@ function addCardEventListeners (card) {
 }
 
 // Обработчик клика на кнопку-сердечко
-// cardTemplate.querySelector('.element__group')
 function like (card) {
   const likeButton = card.querySelector('.element__group');
   likeButton.addEventListener('click', function (evt) {
-    evt.target.classList.toggle('.element__group_active'); // если класса нет - добавляем, если есть - убираем
-    console.log('класс добавился');
+    evt.target.classList.toggle('element__group_active'); // если класса нет - добавляем, если есть - убираем
 });
 }
-
 
 // Функция составления карточки из template
 function createCard(fragment) {

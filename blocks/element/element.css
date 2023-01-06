@@ -11,4 +11,5 @@
   'mask-group mask-group'
   'title like';
   align-items: baseline;
+  position: relative;
 }
