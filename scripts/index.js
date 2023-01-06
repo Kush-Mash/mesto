@@ -1,21 +1,24 @@
 const editButton = document.querySelector('.profile__edit-button');
 const popupUserInfo = document.querySelector('.popup_modify_user-info');
 const closeButtonUserInfo = popupUserInfo.querySelector('.popup__close-button_modify_user-info');
+const popupEditFormUser = popupUserInfo.querySelector('.popup__edit-form_modify_user-info');
 const nameInput = popupUserInfo.querySelector('.popup__field_type_name');
 const jobInput = popupUserInfo.querySelector('.popup__field_type_job');
 const userName = document.querySelector('.profile__title');
 const userJob = document.querySelector('.profile__subtitle');
-const popupEditForm = document.querySelector('.popup__edit-form');
 const popupNewPlace = document.querySelector('.popup_modify_new-place');
 const addButton = document.querySelector('.profile__add-button');
 const cardsContainer = document.querySelector('.elements__box');
 const cardTemplate = document.querySelector('.template-card').content.querySelector('.element');
 const closeButtonNewPlace = popupNewPlace.querySelector('.popup__close-button_modify_new-place');
+const popupEditFormPlace = popupNewPlace.querySelector('.popup__edit-form_modify_new-place');
 const titlePlaceInput = popupNewPlace.querySelector('.popup__field_type_title-place');
 const linkPlaceInput = popupNewPlace.querySelector('.popup__field_type_link-place');
 const card = cardTemplate.cloneNode(true);
-const like = card.querySelector('.element__group');
+const likeButton = card.querySelector('.element__group');
 
+const cardName = card.querySelector('.element__title');
+const cardPhoto = card.querySelector('.element__mask-group');
 
 const initialCards = [
   {
@@ -60,6 +63,46 @@ function handleFormSubmitProfile (evt) {
   closePopup(popupUserInfo);
 }
 
+// Функция удаления карточки (корзина)
+function addCardEventListeners (card) {
+  const deleteButton = card.querySelector('.element__trash');
+  const deleteCard = () => {
+    card.remove();
+  }
+
+  deleteButton.addEventListener('click', deleteCard);
+}
+
+// Обработчик клика на кнопку-сердечко
+// cardTemplate.querySelector('.element__group')
+function like (card) {
+  const likeButton = card.querySelector('.element__group');
+  likeButton.addEventListener('click', function (evt) {
+    evt.target.classList.toggle('.element__group_active'); // если класса нет - добавляем, если есть - убираем
+    console.log('класс добавился');
+});
+}
+
+
+// Функция составления карточки из template
+function createCard(fragment) {
+  const card = cardTemplate.cloneNode(true);
+  const cardName = card.querySelector('.element__title');
+  cardName.textContent = fragment.name;
+  const cardPhoto = card.querySelector('.element__mask-group');
+  cardPhoto.src = fragment.link;
+  addCardEventListeners(card);
+  like(card);
+  return card;
+}
+
+// Отправка формы с данными новой карточки через использование createCard
+// function submitCard (evt) {
+//   evt.preventDefault();
+//   const cardName = createCard(titlePlaceInput.value);
+//   const cardPhoto = createCard(linkPlaceInput.value);
+// }
+
 // Отправка формы с данными новой карточки
 function handleFormSubmitCard (evt) {
   evt.preventDefault();
@@ -72,16 +115,6 @@ function handleFormSubmitCard (evt) {
   closePopup(popupNewPlace);
 }
 
-// Функция составления карточки из template
-function createCard(fragment) {
-  const card = cardTemplate.cloneNode(true);
-  const cardName = card.querySelector('.element__title');
-  cardName.textContent = fragment.name;
-  const cardPhoto = card.querySelector('.element__mask-group');
-  cardPhoto.src = fragment.link;
-  return card;
-}
-
 // Вставка в шаблон из массива
 function renderCards() {
   initialCards.forEach(item => {
@@ -91,13 +124,6 @@ function renderCards() {
 }
 
 renderCards();
-
-// Обработчик клика на кнопку-сердечко
-// cardTemplate.querySelector('.element__group')
-like.addEventListener('click', function (evt) {
-  evt.target.classList.toggle('.element__group_active'); // если класса нет - добавляем, если есть - убираем
-  console.log('класс добавился');
-});
 
 // Изменение информации профиля
 
@@ -111,7 +137,7 @@ closeButtonUserInfo.addEventListener('click', () => {
   closePopup(popupUserInfo);
 });
 
-popupEditForm.addEventListener('submit', handleFormSubmitProfile);
+popupEditFormUser.addEventListener('submit', handleFormSubmitProfile);
 
 // Новое место
 
@@ -123,4 +149,4 @@ closeButtonNewPlace.addEventListener('click', () => {
   closePopup(popupNewPlace);
 });
 
-popupNewPlace.addEventListener('submit', handleFormSubmitCard);
+popupEditFormPlace.addEventListener('submit', handleFormSubmitCard);
