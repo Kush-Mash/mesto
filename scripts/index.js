@@ -78,7 +78,7 @@ function like (card) {
   const likeButton = card.querySelector('.element__group');
   likeButton.addEventListener('click', function (evt) {
     evt.target.classList.toggle('element__group_active'); // если класса нет - добавляем, если есть - убираем
-});
+  });
 }
 
 // Функция составления карточки из template
@@ -94,23 +94,26 @@ function createCard(fragment) {
 }
 
 // Отправка формы с данными новой карточки через использование createCard
-// function submitCard (evt) {
-//   evt.preventDefault();
-//   const cardName = createCard(titlePlaceInput.value);
-//   const cardPhoto = createCard(linkPlaceInput.value);
-// }
-
-// Отправка формы с данными новой карточки
-function handleFormSubmitCard (evt) {
+function submitCard (evt) {
   evt.preventDefault();
-  const card = cardTemplate.cloneNode(true);
-  const cardName = card.querySelector('.element__title');
-  const cardPhoto = card.querySelector('.element__mask-group');
-  cardName.textContent = titlePlaceInput.value;
-  cardPhoto.src = linkPlaceInput.value;
-  cardsContainer.append(card);
+  const objNewPlace = {name: titlePlaceInput.value, link: linkPlaceInput.value}
+  createCard(objNewPlace);
+  cardsContainer.prepend(card);
+  popupEditFormPlace.reset();
   closePopup(popupNewPlace);
 }
+
+// Отправка формы с данными новой карточки
+// function handleFormSubmitCard (evt) {
+//   evt.preventDefault();
+//   const card = cardTemplate.cloneNode(true);
+//   const cardName = card.querySelector('.element__title');
+//   const cardPhoto = card.querySelector('.element__mask-group');
+//   cardName.textContent = titlePlaceInput.value;
+//   cardPhoto.src = linkPlaceInput.value;
+//   cardsContainer.prepend(card);
+//   closePopup(popupNewPlace);
+// }
 
 // Вставка в шаблон из массива
 function renderCards() {
@@ -146,4 +149,5 @@ closeButtonNewPlace.addEventListener('click', () => {
   closePopup(popupNewPlace);
 });
 
-popupEditFormPlace.addEventListener('submit', handleFormSubmitCard);
+// popupEditFormPlace.addEventListener('submit', handleFormSubmitCard);
+popupEditFormPlace.addEventListener('submit', submitCard);
