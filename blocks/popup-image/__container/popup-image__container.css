@@ -5,9 +5,3 @@
   position: relative;
   box-sizing: border-box;
 }
-
-@media screen and (max-width: 520px) {
-  .popup-image__container {
-    width: 282px;
-  }
-}
