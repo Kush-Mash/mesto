@@ -153,4 +153,3 @@ closeButtonNewPlace.addEventListener('click', () => {
 });
 
 popupEditFormPlace.addEventListener('submit', submitCard);
-
