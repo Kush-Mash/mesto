@@ -1,0 +1,13 @@
+.popup-image__container {
+  max-width: 75vw;
+  max-height: 75vh;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  position: relative;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 520px) {
+  .popup-image__container {
+    width: 282px;
+  }
+}
