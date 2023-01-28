@@ -34,10 +34,12 @@
     <div class="popup popup_modify_user-info">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__edit-form popup__edit-form_modify_user-info" name="formAboutUser">
-          <input class="popup__field popup__field_type_name" type="text" name="nameInput" placeholder="Имя" required>
-          <input class="popup__field popup__field_type_job" type="text" name="jobInput" placeholder="Статус">
-          <button class="popup__submit-button" type="submit">Сохранить</button>
+        <form class="popup__form popup__form_modify_user-info" name="formAboutUser" novalidate>
+          <input id="name-input" class="popup__input popup__input_type_name" type="text" minlength="2" maxlength="40" name="nameInput" placeholder="Имя" required>
+          <span class="name-input-error popup__input-error"></span>
+          <input class="popup__input popup__input_type_job" type="text" minlength="2" maxlength="200" name="jobInput" placeholder="О себе">
+          <!-- <span class="popup__input-error">Необходимо заполнить данное поле</span> -->
+          <button class="popup__button" type="submit">Сохранить</button>
         </form>
         <button class="popup__close-button popup__close-button_modify_user-info" type="button" aria-label="Закрыть"></button>
       </div>
@@ -45,10 +47,10 @@
     <div class="popup popup_modify_new-place">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__edit-form popup__edit-form_modify_new-place" name="formAboutPlace">
-          <input class="popup__field popup__field_type_title-place" type="text" name="nameInput" placeholder="Название" required>
-          <input class="popup__field popup__field_type_link-place" type="url" name="jobInput" placeholder="Ссылка на картинку" required>
-          <button class="popup__submit-button" type="submit">Создать</button>
+        <form class="popup__form popup__form_modify_new-place" name="formAboutPlace" novalidate>
+          <input class="popup__input popup__input_type_title-place" type="text" minlength="2" maxlength="30" name="nameInput" placeholder="Название" required>
+          <input class="popup__input popup__input_type_link-place" type="url" name="jobInput" placeholder="Ссылка на картинку" required>
+          <button class="popup__button" type="submit">Создать</button>
         </form>
         <button class="popup__close-button popup__close-button_modify_new-place" type="button" aria-label="Закрыть"></button>
       </div>
@@ -73,6 +75,7 @@
   </div>
 
   <script src="./scripts/cards.js"></script>
+  <script src="./scripts/validate.js"></script>
   <script src="./scripts/index.js" defer></script>
 
 </body>

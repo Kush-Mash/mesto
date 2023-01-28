@@ -1,9 +1,9 @@
 const buttonEdit = document.querySelector('.profile__edit-button');
 const popupUserInfo = document.querySelector('.popup_modify_user-info');
 const buttonCloseUserInfo = popupUserInfo.querySelector('.popup__close-button_modify_user-info');
-const popupEditFormUser = popupUserInfo.querySelector('.popup__edit-form_modify_user-info');
-const nameInput = popupUserInfo.querySelector('.popup__field_type_name');
-const jobInput = popupUserInfo.querySelector('.popup__field_type_job');
+const popupFormUser = popupUserInfo.querySelector('.popup__form_modify_user-info');
+const nameInput = popupUserInfo.querySelector('.popup__input_type_name');
+const jobInput = popupUserInfo.querySelector('.popup__input_type_job');
 const userName = document.querySelector('.profile__title');
 const userJob = document.querySelector('.profile__subtitle');
 const popupNewPlace = document.querySelector('.popup_modify_new-place');
@@ -11,13 +11,14 @@ const buttonAdd = document.querySelector('.profile__add-button');
 const cardsContainer = document.querySelector('.elements__box');
 const cardTemplate = document.querySelector('.template-card').content.querySelector('.element');
 const buttonCloseNewPlace = popupNewPlace.querySelector('.popup__close-button_modify_new-place');
-const popupEditFormPlace = popupNewPlace.querySelector('.popup__edit-form_modify_new-place');
-const titlePlaceInput = popupNewPlace.querySelector('.popup__field_type_title-place');
-const linkPlaceInput = popupNewPlace.querySelector('.popup__field_type_link-place');
+const popupFormPlace = popupNewPlace.querySelector('.popup__form_modify_new-place');
+const titlePlaceInput = popupNewPlace.querySelector('.popup__input_type_title-place');
+const linkPlaceInput = popupNewPlace.querySelector('.popup__input_type_link-place');
 const popupImage = document.querySelector('.popup-image');
 const buttonClosePicture = popupImage.querySelector('.popup-image__close-button');
 const picture = popupImage.querySelector('.popup-image__picture');
 const pictureName = popupImage.querySelector('.popup-image__name');
+const formError = document.querySelector(`.${nameInput.id}-error`);
 
 function openPopup (popupVariant) {
   popupVariant.classList.add('popup_opened');
@@ -83,7 +84,7 @@ function submitCard (evt) {
   const objNewPlace = {name: titlePlaceInput.value, link: linkPlaceInput.value}
   cardsContainer.prepend(createCard(objNewPlace));
   closePopup(popupNewPlace);
-  popupEditFormPlace.reset();
+  popupFormPlace.reset();
 }
 
 // Вставка в шаблон из массива
@@ -93,6 +94,37 @@ function renderCards() {
     cardsContainer.append(readyCard);
   });
 }
+
+// // Функция, которая добавляет класс с ошибкой
+// const showInputError = (element, errorMessage) => {
+//   element.classList.add('popup__input_type_error');
+//   // Показываем сообщение об ошибке
+//   formError.textContent = errorMessage;
+//   formError.classList.add('popup__input-error_active');
+// };
+
+// // Функция, которая удаляет класс с ошибкой
+// const hideInputError = (element) => {
+//   element.classList.remove('popup__input_type_error');
+//   formError.classList.remove('popup__input-error_active');
+//   // Очистим ошибку
+//   formError.textContent = '';
+// };
+
+// // Функция, которая проверяет валидность поля
+// const isValid = () => {
+//   if (!nameInput.validity.valid) {
+//     // Если поле не проходит валидацию, покажем ошибку
+//     showInputError(nameInput, nameInput.validationMessage);
+//   } else {
+//     // Если проходит, скроем
+//     hideInputError(nameInput);
+//   }
+// };
+
+// // Вызовем функцию isValid на каждый ввод символа
+// nameInput.addEventListener('input', isValid);
+
 
 renderCards();
 
@@ -108,7 +140,13 @@ buttonCloseUserInfo.addEventListener('click', () => {
   closePopup(popupUserInfo);
 });
 
-popupEditFormUser.addEventListener('submit', handleFormSubmitProfile);
+popupUserInfo.addEventListener('click', (evt) => {
+  if (evt.target === evt.currentTarget) {
+  closePopup(popupUserInfo);
+  }
+});
+
+popupFormUser.addEventListener('submit', handleFormSubmitProfile);
 
 // Новое место
 
@@ -120,7 +158,13 @@ buttonCloseNewPlace.addEventListener('click', () => {
   closePopup(popupNewPlace);
 });
 
-popupEditFormPlace.addEventListener('submit', submitCard);
+popupNewPlace.addEventListener('click', (evt) => {
+  if (evt.target === evt.currentTarget) {
+    closePopup(popupNewPlace);
+  }
+});
+
+popupFormPlace.addEventListener('submit', submitCard);
 
 // Попап с картинкой
 
