@@ -18,7 +18,6 @@ const showInputError = (formElement, inputElement, errorMessage, config) => {
 
 // Функция, которая удаляет класс с ошибкой
 const hideInputError = (formElement, inputElement, config) => {
-  // Находим элемент ошибки
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(config.inputErrorClass);
   errorElement.textContent = '';
@@ -47,18 +46,24 @@ const hasInvalidInput = (inputList) => {
   })
 };
 
+function disableButton(buttonElement, config) {
+  buttonElement.classList.add(config.inactiveButtonClass);
+  buttonElement.disabled = true;
+};
+
+function enableButton(buttonElement, config) {
+  buttonElement.classList.remove(config.inactiveButtonClass);
+  buttonElement.disabled = false;
+};
+
 // Функция принимает массив полей ввода
 // и элемент кнопки, состояние которой нужно менять
 const toggleButtonState = (inputList, buttonElement, config) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
-    // сделай кнопку неактивной
-    buttonElement.classList.add(config.inactiveButtonClass);
-    buttonElement.disabled = true;
+    disableButton(buttonElement, config);
   } else {
-    // иначе сделай кнопку активной
-    buttonElement.classList.remove(config.inactiveButtonClass);
-    buttonElement.disabled = false;
+    enableButton(buttonElement, config);
   }
 };
 
@@ -68,8 +73,16 @@ const setEventListeners = (formElement, config) => {
   // Найдём в текущей форме кнопку отправки
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
-  // Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
+  // деактивируем кнопку при 1й загрузке сайта
   toggleButtonState(inputList, buttonElement, config);
+
+  // при очистке формы
+  formElement.addEventListener('reset', () => {
+    // `setTimeout` нужен для того, чтобы дождаться очищения формы (вызов уйдет в конце стэка) и только потом вызвать `toggleButtonState`
+    setTimeout(() => {
+      toggleButtonState(inputList, buttonElement, config);
+    }, 0); // достаточно указать 0 миллисекунд, чтобы после `reset` уже сработало действие
+  });
 
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {
@@ -85,14 +98,6 @@ const setEventListeners = (formElement, config) => {
   });
 };
 
-// Функция блокирует кнопку, чтобы не было возможности добавить пустую карточку
-// при повторном открытии формы после предыдущего успешного добавления
-function disabledButton(formElement, config) {
-  const buttonElement = formElement.querySelector(config.submitButtonSelector);
-  buttonElement.classList.add(config.inactiveButtonClass);
-  buttonElement.disabled = true;
-};
-
 const enableValidation = (config) => {
   // Найдём все формы с указанным классом в DOM,
   // сделаем из них массив
@@ -100,10 +105,6 @@ const enableValidation = (config) => {
 
   formList.forEach((formElement) => {
     setEventListeners(formElement, config);
-    formElement.addEventListener('submit', (evt) => {
-      // Блокируем кнопку добавления
-      disabledButton(formElement, config);
-    });
   });
 };
 
