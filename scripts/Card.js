@@ -53,3 +53,5 @@ class Card {
 export default Card;
 
 import { handleCardClick } from './index.js'
+
+import { initialCards } from './constants.js'

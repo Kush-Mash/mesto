@@ -24,7 +24,7 @@ function handleCardClick(name, link) {
 }
 
 function createCard(item) {
-  const card = new Card(item, cardTemplate, handleCardClick);
+  const card = new Card(item, '.template-card', handleCardClick);
 
   return card.createCard();
 };
