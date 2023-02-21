@@ -44,6 +44,15 @@ const initialCards = [
   }
 ];
 
+const object = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
 export { popupImage, initialCards, buttonEdit, popupUserInfo, popupFormUser, nameInput, jobInput, userName,
   userJob, popupNewPlace, buttonAdd, cardsContainer, cardTemplate, popupFormPlace, titlePlaceInput,
-  linkPlaceInput, picture, pictureName, popups };
+  linkPlaceInput, picture, pictureName, popups, object };

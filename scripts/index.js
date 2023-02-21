@@ -25,9 +25,14 @@ function handleCardClick(name, link) {
 
 function createCard(item) {
   const card = new Card(item, '.template-card', handleCardClick);
-
   return card.createCard();
 };
+
+const validateProfile = new FormValidator(object, document.querySelector('.popup__form_modify_user-info'));
+validateProfile.enableValidation();
+
+const validateCard = new FormValidator(object, document.querySelector('.popup__form_modify_new-place'));
+validateCard.enableValidation();
 
 // Отправка формы с данными новой карточки через использование createCard ---- ИЗМЕНИТЬ
 function submitCard (evt) {
@@ -85,10 +90,14 @@ popups.forEach((popup) => {
   });
 });
 
-export {openPopup, handleCardClick};
+
+
+export { openPopup, handleCardClick };
 
 import { popupImage, initialCards, buttonEdit, popupUserInfo, popupFormUser, nameInput, jobInput, userName, userJob,
   popupNewPlace, buttonAdd, cardsContainer, cardTemplate, popupFormPlace, titlePlaceInput, linkPlaceInput, picture,
-  pictureName, popups } from './constants.js';
+  pictureName, popups, object } from './constants.js';
 
 import Card from './Card.js';
+
+import FormValidator from './FormValidator.js';
