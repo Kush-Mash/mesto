@@ -1,3 +1,5 @@
+import { handleCardClick } from './index.js';
+
 class Card {
   constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
@@ -19,39 +21,40 @@ class Card {
     return cardElement;
   }
 
+  createCard() {
+    // Запишем разметку в приватное поле _element.
+    // Так у других элементов появится доступ к ней.
+    this._element = this._getTemplate();
+
+    this._cardImage = this._element.querySelector('.element__mask-group');
+    this._cardTitle = this._element.querySelector('.element__title');
+    this._buttonLike = this._element.querySelector('.element__group');
+    this._buttonTrash = this._element.querySelector('.element__trash');
+
+    this._cardTitle.textContent = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+
+    this._setEventListeners();
+
+    return this._element;
+  }
+
     _deleteCard() {
       this._element.remove();
     }
 
     _handleLikeClick() {
-      this._element.querySelector('.element__group').classList.toggle('element__group_active');
+      this._buttonLike.classList.toggle('element__group_active');
     }
 
     _setEventListeners() {
-      this._element.querySelector('.element__trash').addEventListener('click', this._deleteCard);
-      this._element.querySelector('.element__group').addEventListener('click', this._handleLikeClick);
-      this._element.querySelector('.element__mask-group').addEventListener('click', () => {
+      this._buttonTrash.addEventListener('click', this._deleteCard);
+      this._buttonLike.addEventListener('click', this._handleLikeClick);
+      this._cardImage.addEventListener('click', () => {
         this._handleCardClick(this._name, this._link)
       });
-    }
-
-    createCard() {
-      // Запишем разметку в приватное поле _element.
-      // Так у других элементов появится доступ к ней.
-      this._element = this._getTemplate();
-
-      this._element.querySelector('.element__mask-group').src = this._link;
-      this._element.querySelector('.element__mask-group').alt = this._name;
-      this._element.querySelector('.element__title').textContent = this._name;
-
-      this._setEventListeners();
-
-      return this._element;
     }
   }
 
 export default Card;
-
-import handleCardClick from './index.js';
-
-import initialCards from './constants.js';

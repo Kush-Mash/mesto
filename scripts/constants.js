@@ -44,7 +44,7 @@ const initialCards = [
   }
 ];
 
-const object = {
+const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
@@ -55,4 +55,4 @@ const object = {
 
 export { popupImage, initialCards, buttonEdit, popupUserInfo, popupFormUser, nameInput, jobInput, userName,
   userJob, popupNewPlace, buttonAdd, cardsContainer, cardTemplate, popupFormPlace, titlePlaceInput,
-  linkPlaceInput, picture, pictureName, popups, object };
+  linkPlaceInput, picture, pictureName, popups, validationConfig };

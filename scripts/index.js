@@ -1,3 +1,11 @@
+import { popupImage, initialCards, buttonEdit, popupUserInfo, popupFormUser, nameInput, jobInput, userName, userJob,
+  popupNewPlace, buttonAdd, cardsContainer, cardTemplate, popupFormPlace, titlePlaceInput, linkPlaceInput, picture,
+  pictureName, popups, validationConfig } from './constants.js';
+
+import Card from './Card.js';
+
+import FormValidator from './FormValidator.js';
+
 function openPopup (popupVariant) {
   popupVariant.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
@@ -17,9 +25,9 @@ function closePopupEsc (evt) {
 
 // Отдельная функция попапа-картинки
 function handleCardClick(name, link) {
-  picture.src = cardData.link;
-  pictureName.textContent = cardData.name;
-  picture.alt = `Фотография места ${cardData.name}`;
+  picture.src = link;
+  pictureName.textContent = name;
+  picture.alt = `Фотография места ${name}`;
   openPopup(popupImage);
 }
 
@@ -28,13 +36,13 @@ function createCard(item) {
   return card.createCard();
 };
 
-const validateProfile = new FormValidator(object, document.querySelector('.popup__form_modify_user-info'));
-validateProfile.enableValidation();
+// Экземпляры класса валидации
+const profileValidator = new FormValidator(validationConfig, popupFormUser);
+profileValidator.enableValidation();
+const сardValidator = new FormValidator(validationConfig, popupFormPlace);
+сardValidator.enableValidation();
 
-const validateCard = new FormValidator(object, document.querySelector('.popup__form_modify_new-place'));
-validateCard.enableValidation();
-
-// Отправка формы с данными новой карточки через использование createCard ---- ИЗМЕНИТЬ
+// Отправка формы с данными новой карточки через использование createCard
 function submitCard (evt) {
   evt.preventDefault();
   const objNewPlace = {name: titlePlaceInput.value, link: linkPlaceInput.value}
@@ -52,14 +60,14 @@ function handleFormSubmitProfile (evt) {
 };
 
 // Вставка в шаблон из массива
-function renderCards() {
+function renderInitialCards() {
   initialCards.forEach(item => {
     const readyCard = createCard(item);
     cardsContainer.append(readyCard);
   });
 };
 
-renderCards();
+renderInitialCards();
 
 // Профиль
 buttonEdit.addEventListener('click', () => {
@@ -81,23 +89,10 @@ popupFormPlace.addEventListener('submit', submitCard);
 // Закрытие любого попапа
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup_opened')) {
-          closePopup(popup)
-      }
-      if (evt.target.classList.contains('popup__close-button')) {
+      if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
         closePopup(popup)
       }
   });
 });
 
-
-
 export { openPopup, handleCardClick };
-
-import { popupImage, initialCards, buttonEdit, popupUserInfo, popupFormUser, nameInput, jobInput, userName, userJob,
-  popupNewPlace, buttonAdd, cardsContainer, cardTemplate, popupFormPlace, titlePlaceInput, linkPlaceInput, picture,
-  pictureName, popups, object } from './constants.js';
-
-import Card from './Card.js';
-
-import FormValidator from './FormValidator.js';
