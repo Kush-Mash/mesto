@@ -12,9 +12,9 @@ const cardTemplate = document.querySelector('.template-card').content.querySelec
 const popupFormPlace = document.forms['formAboutPlace'];
 const titlePlaceInput = popupNewPlace.querySelector('.popup__input_type_title-place');
 const linkPlaceInput = popupNewPlace.querySelector('.popup__input_type_link-place');
-const popupImage = document.querySelector('.popup_modify_image');
-const picture = popupImage.querySelector('.popup__picture');
-const pictureName = popupImage.querySelector('.popup__picture-name');
+// const popupImage = document.querySelector('.popup_modify_image');
+// const picture = popupImage.querySelector('.popup__picture');
+// const pictureName = popupImage.querySelector('.popup__picture-name');
 const popups = document.querySelectorAll('.popup')
 
 const initialCards = [
@@ -53,6 +53,6 @@ const validationConfig = {
   errorClass: 'popup__error_visible'
 };
 
-export { popupImage, initialCards, buttonEdit, popupUserInfo, popupFormUser, nameInput, jobInput, userName,
+export { initialCards, buttonEdit, popupUserInfo, popupFormUser, nameInput, jobInput, userName,
   userJob, popupNewPlace, buttonAdd, cardsContainer, cardTemplate, popupFormPlace, titlePlaceInput,
-  linkPlaceInput, picture, pictureName, popups, validationConfig };
+  linkPlaceInput, popups, validationConfig };

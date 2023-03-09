@@ -1,4 +1,4 @@
-import { handleCardClick } from './index.js';
+ import { handleCardClick } from './index.js';
 
 class Card {
   constructor(data, templateSelector, handleCardClick) {
@@ -11,6 +11,7 @@ class Card {
     this._handleCardClick = handleCardClick;
   }
 
+  // Метод клонирует и возвращает разметку формы
   _getTemplate() {
     const cardElement = document
       .querySelector(this._templateSelector)
@@ -21,7 +22,7 @@ class Card {
     return cardElement;
   }
 
-  createCard() {
+  generateCard() {
     // Запишем разметку в приватное поле _element.
     // Так у других элементов появится доступ к ней.
     this._element = this._getTemplate();
