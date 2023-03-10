@@ -8,8 +8,8 @@ export default class Section {
     this._renderer = renderer;
   };
 
-  addItems(element) {
-    this._container.append(element);
+  addItem(element) {
+    this._container.prepend(element);
   };
 
   renderItems() {

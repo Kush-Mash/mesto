@@ -10,24 +10,23 @@ import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
 import UserInfo from './UserInfo.js';
 
-export function handleCardClick(data) {
+function handleCardClick(data) {
   popupImage.open(data);
 }
 
 // Экземпляры классов:
 
-function createCard(item) {
-  const card = new Card(item, '.template-card', handleCardClick);
+function createCard(title, img) {
+  const card = new Card({name: title, link: img}, '.template-card', handleCardClick);
   return card.generateCard();
 };
 
 const defaultCardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    defaultCardList.addItems(createCard(item));
+    defaultCardList.addItem(createCard(item.name, item.link));
   },
 }, '.elements__box');
-
 defaultCardList.renderItems();
 
 const profileValidator = new FormValidator(validationConfig, popupFormUser);
@@ -37,8 +36,6 @@ const сardValidator = new FormValidator(validationConfig, popupFormPlace);
 
 const popupImage = new PopupWithImage('.popup_modify_image');
 popupImage.setEventListeners();
-
-// function addUserInfo()
 
 const profileUserInfo = new UserInfo({
   userNameSelector: '.profile__title',
@@ -53,13 +50,12 @@ const PopupWithFormProfile = new PopupWithForm({
       name: data.name,
       job: data.job
     });
-    console.log(data);
     PopupWithFormProfile.close();
   }
 });
 PopupWithFormProfile.setEventListeners();
 
-// Профиль. Подставляем данные в инпуты get
+// Профиль. Подставляем данные в инпуты
 buttonEdit.addEventListener('click', () => {
   const profileData = profileUserInfo.getUserInfo();
   nameInput.value = profileData.name;
@@ -67,37 +63,18 @@ buttonEdit.addEventListener('click', () => {
   PopupWithFormProfile.open();
 });
 
-// Забираем из формы данные профиля set
-function handleFormSubmitProfile () {
-  userName.textContent = nameInput.value;
-  userJob.textContent = jobInput.value;
-  PopupWithFormProfile.close();
-};
-
 const PopupWithFormCard = new PopupWithForm({
   popupSelector: '.popup_modify_new-place',
-  handleFormSubmit: (data) => {
-
-    // handleFormSubmitCard();
+  handleFormSubmit: (item) => {
+    const newCard = createCard(item.name, item.link);
+    defaultCardList.addItem(newCard);
+    PopupWithFormCard.close();
   }
 });
 PopupWithFormCard.setEventListeners();
-
-// Забираем из формы данные новой карточки
-function handleFormSubmitCard () {
-  const objNewPlace = {name: titlePlaceInput.value, link: linkPlaceInput.value}
-  cardsContainer.prepend(createCard(objNewPlace));
-  PopupWithFormCard.close();
-  popupFormPlace.reset();
-};
+buttonAdd.addEventListener('.click', () => {PopupWithFormCard.open()});
 
 // Новое место
 buttonAdd.addEventListener('click', () => {
   PopupWithFormCard.open();
 });
-
-
-// popupFormUser.addEventListener('submit', handleFormSubmitProfile);
-// popupFormPlace.addEventListener('submit', submitCard);
-
-

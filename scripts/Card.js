@@ -1,4 +1,4 @@
- import { handleCardClick } from './index.js';
+ //import { handleCardClick } from './index.js';
 
 class Card {
   constructor(data, templateSelector, handleCardClick) {
