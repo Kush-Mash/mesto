@@ -10,8 +10,8 @@ import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
 import UserInfo from './UserInfo.js';
 
-function handleCardClick(data) {
-  popupImage.open(data);
+function handleCardClick(name, link) {
+  popupImage.open({name, link});
 }
 
 // Экземпляры классов:
