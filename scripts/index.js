@@ -50,18 +50,35 @@ const PopupWithFormProfile = new PopupWithForm({
   // окажется на месте параметра data
   handleFormSubmit: (data) => {
     profileUserInfo.setUserInfo({
-      name: data.userNameSelector,
-      job: data.userJobSelector
+      name: data.name,
+      job: data.job
     });
-    // handleFormSubmitProfile();
+    console.log(data);
+    PopupWithFormProfile.close();
   }
 });
 PopupWithFormProfile.setEventListeners();
 
+// Профиль. Подставляем данные в инпуты get
+buttonEdit.addEventListener('click', () => {
+  const profileData = profileUserInfo.getUserInfo();
+  nameInput.value = profileData.name;
+  jobInput.value = profileData.job;
+  PopupWithFormProfile.open();
+});
+
+// Забираем из формы данные профиля set
+function handleFormSubmitProfile () {
+  userName.textContent = nameInput.value;
+  userJob.textContent = jobInput.value;
+  PopupWithFormProfile.close();
+};
+
 const PopupWithFormCard = new PopupWithForm({
   popupSelector: '.popup_modify_new-place',
-  handleFormSubmit: () => {
-    handleFormSubmitCard();
+  handleFormSubmit: (data) => {
+
+    // handleFormSubmitCard();
   }
 });
 PopupWithFormCard.setEventListeners();
@@ -70,24 +87,9 @@ PopupWithFormCard.setEventListeners();
 function handleFormSubmitCard () {
   const objNewPlace = {name: titlePlaceInput.value, link: linkPlaceInput.value}
   cardsContainer.prepend(createCard(objNewPlace));
-  closePopup(PopupWithFormCard);
+  PopupWithFormCard.close();
   popupFormPlace.reset();
 };
-
-// Забираем из формы данные профиля
-function handleFormSubmitProfile () {
-  userName.textContent = nameInput.value;
-  userJob.textContent = jobInput.value;
-  closePopup(PopupWithFormProfile);
-};
-
-// Профиль
-buttonEdit.addEventListener('click', () => {
-
-  PopupWithFormProfile.open();
-  // nameInput.value = userName.textContent;
-  // jobInput.value = userJob.textContent;
-});
 
 // Новое место
 buttonAdd.addEventListener('click', () => {

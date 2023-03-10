@@ -14,8 +14,8 @@ export default class UserInfo {
   };
 
   // То, что заносится в инпуты формы пользователем, подставляется в профиль
-  setUserInfo(data) {
-    this._userName.textContent = data.name;
-    this._userJob.textContent = data.job;
+  setUserInfo({name, job}) {
+    this._userName.textContent = name;
+    this._userJob.textContent = job;
   };
 };
