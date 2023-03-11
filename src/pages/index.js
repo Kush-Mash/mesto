@@ -1,11 +1,9 @@
-import { initialCards, buttonEdit, popupUserInfo, popupFormUser, nameInput, jobInput, userName, userJob,
-  popupNewPlace, buttonAdd, cardsContainer, cardTemplate, popupFormPlace, titlePlaceInput, linkPlaceInput,
-  popups, validationConfig } from '../scripts/utils/constants.js';
+import { initialCards, buttonEdit, popupFormUser, nameInput, jobInput,
+  buttonAdd, popupFormPlace, validationConfig } from '../scripts/utils/constants.js';
 
 import Card from '../scripts/components/Card.js';
 import FormValidator from '../scripts/components/FormValidator.js';
 import Section from '../scripts/components/Section.js';
-import Popup from '../scripts/components/Popup.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';

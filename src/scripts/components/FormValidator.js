@@ -1,5 +1,3 @@
-import { validationConfig } from '../utils/constants.js';
-
 export default class FormValidator {
   constructor(validationConfig, formElement) {
     this._inactiveButtonClass = validationConfig.inactiveButtonClass;
