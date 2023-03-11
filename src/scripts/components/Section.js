@@ -1,5 +1,3 @@
-// import { cardsContainer } from constants.js;
-
 // Берёт разметку и вставляет в DOM
 export default class Section {
   constructor({items, renderer}, containerSelector) {

@@ -1,6 +1,4 @@
- //import { handleCardClick } from './index.js';
-
-class Card {
+export default class Card {
   constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
@@ -9,7 +7,7 @@ class Card {
     this._deleteCard = this._deleteCard.bind(this);
     this._handleLikeClick = this._handleLikeClick.bind(this);
     this._handleCardClick = handleCardClick;
-  }
+  };
 
   // Метод клонирует и возвращает разметку формы
   _getTemplate() {
@@ -20,7 +18,7 @@ class Card {
       .cloneNode(true);
 
     return cardElement;
-  }
+  };
 
   generateCard() {
     // Запишем разметку в приватное поле _element.
@@ -39,15 +37,15 @@ class Card {
     this._setEventListeners();
 
     return this._element;
-  }
+  };
 
     _deleteCard() {
       this._element.remove();
-    }
+    };
 
     _handleLikeClick() {
       this._buttonLike.classList.toggle('element__group_active');
-    }
+    };
 
     _setEventListeners() {
       this._buttonTrash.addEventListener('click', this._deleteCard);
@@ -55,7 +53,5 @@ class Card {
       this._cardImage.addEventListener('click', () => {
         this._handleCardClick(this._name, this._link)
       });
-    }
-  }
-
-export default Card;
+    };
+  };

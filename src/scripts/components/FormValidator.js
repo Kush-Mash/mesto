@@ -1,6 +1,6 @@
-import { validationConfig } from './constants.js';
+import { validationConfig } from '../utils/constants.js';
 
-class FormValidator {
+export default class FormValidator {
   constructor(validationConfig, formElement) {
     this._inactiveButtonClass = validationConfig.inactiveButtonClass;
     this._inputErrorClass = validationConfig.inputErrorClass;
@@ -12,7 +12,7 @@ class FormValidator {
     this._showInputError = this._showInputError.bind(this);
     this._hideInputError = this._hideInputError.bind(this);
     this._toggleInputErrorState = this._toggleInputErrorState.bind(this);
-  }
+  };
 
   // Функция, которая добавляет класс с ошибкой
   _showInputError(inputElement, errorMessage) {
@@ -93,5 +93,3 @@ class FormValidator {
       this._setEventListeners();
   };
 };
-
-export default FormValidator;
