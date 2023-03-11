@@ -8,6 +8,8 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 
+import './index.css';
+
 function handleCardClick(name, link) {
   popupImage.open({name, link});
 }
