@@ -41,7 +41,7 @@ const profileUserInfo = new UserInfo({
   userNameSelector: '.profile__title',
   userJobSelector: '.profile__subtitle'});
 
-const PopupWithFormProfile = new PopupWithForm({
+const popupWithFormProfile = new PopupWithForm({
   popupSelector: '.popup_modify_user-info',
   // объект, который мы передадим при вызове handleFormSubmit
   // окажется на месте параметра data
@@ -50,31 +50,31 @@ const PopupWithFormProfile = new PopupWithForm({
       name: data.name,
       job: data.job
     });
-    PopupWithFormProfile.close();
+    popupWithFormProfile.close();
   }
 });
-PopupWithFormProfile.setEventListeners();
+popupWithFormProfile.setEventListeners();
 
 // Профиль. Подставляем данные в инпуты
 buttonEdit.addEventListener('click', () => {
   const profileData = profileUserInfo.getUserInfo();
   nameInput.value = profileData.name;
   jobInput.value = profileData.job;
-  PopupWithFormProfile.open();
+  popupWithFormProfile.open();
 });
 
-const PopupWithFormCard = new PopupWithForm({
+const popupWithFormCard = new PopupWithForm({
   popupSelector: '.popup_modify_new-place',
   handleFormSubmit: (item) => {
     const newCard = createCard(item.name, item.link);
     defaultCardList.addItem(newCard);
-    PopupWithFormCard.close();
+    popupWithFormCard.close();
   }
 });
-PopupWithFormCard.setEventListeners();
-buttonAdd.addEventListener('.click', () => {PopupWithFormCard.open()});
+popupWithFormCard.setEventListeners();
+buttonAdd.addEventListener('.click', () => {popupWithFormCard.open()});
 
 // Новое место
 buttonAdd.addEventListener('click', () => {
-  PopupWithFormCard.open();
+  popupWithFormCard.open();
 });
