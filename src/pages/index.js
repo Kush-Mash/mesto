@@ -55,7 +55,7 @@ const popupWithFormProfile = new PopupWithForm({
 });
 popupWithFormProfile.setEventListeners();
 
-// Профиль. Подставляем данные в инпуты
+// Профиль. Открываем, подставляем данные в инпуты
 buttonEdit.addEventListener('click', () => {
   const profileData = profileUserInfo.getUserInfo();
   nameInput.value = profileData.name;
@@ -72,9 +72,9 @@ const popupWithFormCard = new PopupWithForm({
   }
 });
 popupWithFormCard.setEventListeners();
-buttonAdd.addEventListener('.click', () => {popupWithFormCard.open()});
 
-// Новое место
-buttonAdd.addEventListener('click', () => {
+buttonAdd.addEventListener('.click', () => {
+  сardValidator.resetValidation();
   popupWithFormCard.open();
 });
+

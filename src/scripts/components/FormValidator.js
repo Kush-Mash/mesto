@@ -64,17 +64,26 @@ export default class FormValidator {
     }
   };
 
-  _setEventListeners() {
-    // деактивируем кнопку при 1й загрузке сайта
+  resetValidation() {
     this._toggleButtonState();
 
-    // при очистке формы
-    this._formElement.addEventListener('reset', () => {
-      // `setTimeout`, чтобы дождаться очищения формы (вызов уйдет в конце стэка) и только потом вызвать `toggleButtonState`
-      setTimeout(() => {
-        this._toggleButtonState();
-      }, 0); // достаточно 0 миллисекунд, чтобы после `reset` сработало действие
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement)
     });
+
+  }
+
+  _setEventListeners() {
+    // деактивируем кнопку при 1й загрузке сайта
+    // this._toggleButtonState();
+
+    // // при очистке формы
+    // this._formElement.addEventListener('reset', () => {
+    //   // `setTimeout`, чтобы дождаться очищения формы (вызов уйдет в конце стэка) и только потом вызвать `toggleButtonState`
+    //   setTimeout(() => {
+    //     this._toggleButtonState();
+    //   }, 0); // достаточно 0 миллисекунд, чтобы после `reset` сработало действие
+    // });
 
     // Обойдём все элементы полученной коллекции
     this._inputList.forEach((inputElement) => {
