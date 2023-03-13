@@ -60,8 +60,9 @@ buttonEdit.addEventListener('click', () => {
   const profileData = profileUserInfo.getUserInfo();
   nameInput.value = profileData.name;
   jobInput.value = profileData.job;
-  popupWithFormProfile.open();
+  popupFormUser.reset();
   profileValidator.resetValidation();
+  popupWithFormProfile.open();
 });
 
 const popupWithFormCard = new PopupWithForm({
@@ -75,6 +76,7 @@ const popupWithFormCard = new PopupWithForm({
 popupWithFormCard.setEventListeners();
 
 buttonAdd.addEventListener('click', () => {
+  popupFormPlace.reset();
   сardValidator.resetValidation();
   popupWithFormCard.open();
 });
