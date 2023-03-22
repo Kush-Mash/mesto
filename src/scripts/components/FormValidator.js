@@ -70,7 +70,6 @@ export default class FormValidator {
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement)
     });
-
   }
 
   _setEventListeners() {
@@ -84,7 +83,6 @@ export default class FormValidator {
     });
   };
 
-  // Запускаем валидацию
   enableValidation() {
       this._setEventListeners();
   };

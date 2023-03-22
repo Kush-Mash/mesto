@@ -1,7 +1,7 @@
 // Берёт разметку и вставляет в DOM
 export default class Section {
-  constructor({items, renderer}, containerSelector) {
-    this._renderedItems = items;
+  constructor({renderer}, containerSelector) { // убрали items из аргументов и из конструктора
+    // this._renderedItems = items;
     this._container = document.querySelector(containerSelector);
     this._renderer = renderer;
   };
@@ -10,8 +10,8 @@ export default class Section {
     this._container.prepend(element);
   };
 
-  renderItems() {
-    this._renderedItems.forEach((item) => {
+  renderItems(items) { // items сюда будут приходить карточки с сервера
+    items.forEach((item) => { // вместо начальных this._renderedItems поставили карточки с сервера - items
       this._renderer(item);
     });
   };

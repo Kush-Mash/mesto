@@ -2,14 +2,6 @@
   background: #FFFFFF;
   border-radius: 10px;
   width: 282px;
-  padding-bottom: 24px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(min-content, max-content));
-  grid-template-rows: repeat(2, minmax(min-content, max-content));
-  gap: 25px 0;
-  grid-template-areas:
-  'mask-group mask-group'
-  'title like';
-  align-items: baseline;
+  max-height: 361px;
   position: relative;
 }

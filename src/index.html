@@ -15,7 +15,10 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" alt="Аватар" src="<%=require('./images/avatar.png')%>">
+        <div class="profile__avatar-box">
+          <img class="profile__avatar" alt="Аватар" src="<%=require('./images/avatar.png')%>">
+          <button class="profile__avatar-edit-button" type="button" title="Загрузить новый аватар"></button>
+        </div>
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <p class="profile__subtitle">Исследователь океана</p>
@@ -57,6 +60,17 @@
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
       </div>
     </div>
+    <div class="popup popup_modify_avatar">
+      <div class="popup__container">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form popup__form_modify_avatar" name="formAboutPlace" novalidate>
+          <input id="link-place-input" class="popup__input popup__input_type_avatar" type="url" name="link" placeholder="Ссылка на картинку" required>
+          <span class="popup__input-error link-place-input-error"></span>
+          <button class="popup__button" type="submit">Сохранить</button>
+        </form>
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+      </div>
+    </div>
     <div class="popup popup_modify_image">
       <div class="popup__image-container">
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
@@ -64,12 +78,26 @@
         <p class="popup__picture-name"></p>
       </div>
     </div>
+    <div class="popup popup_modify_confirm">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <form class="popup__form popup__form_modify_confirm" name="formAboutConfirm" novalidate>
+          <button class="popup__button" type="button">Да</button>
+        </form>
+      </div>
+    </div>
 
     <template class="template-card">
       <li class="element">
         <img class="element__mask-group" alt="Ваша фотография места" src="#">
-        <h2 class="element__title"></h2>
-        <button class="element__group" type="button" aria-label="Нравится"></button>
+        <div class="element__wrapper">
+          <h2 class="element__title"></h2>
+          <div class="element__group">
+            <button class="element__toggle" type="button" aria-label="Нравится"></button>
+            <span class="element__counter">0</span>
+          </div>
+        </div>
         <button class="element__trash" type="button" aria-label="Удалить"></button>
       </li>
     </template>

@@ -9,4 +9,6 @@
   color: #FFFFFF;
   font-family: 'Inter', 'Arial', sans-serif;
   min-width: 320px;
+  cursor: auto;
+  box-sizing: border-box;
   }

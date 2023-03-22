@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(data, templateSelector, handleCardClick) { //handleTrashClick
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector; // записали селектор в приватное поле
@@ -7,9 +7,10 @@ export default class Card {
     this._deleteCard = this._deleteCard.bind(this);
     this._handleLikeClick = this._handleLikeClick.bind(this);
     this._handleCardClick = handleCardClick;
+    // this._handleTrashClick = handleTrashClick;
   };
 
-  // Метод клонирует и возвращает разметку формы
+  // Клонировать и вернуть разметку формы
   _getTemplate() {
     const cardElement = document
       .querySelector(this._templateSelector)
@@ -20,6 +21,7 @@ export default class Card {
     return cardElement;
   };
 
+  // Наполнить темплейт содержимым
   generateCard() {
     // Запишем разметку в приватное поле _element.
     // Так у других элементов появится доступ к ней.
@@ -54,5 +56,15 @@ export default class Card {
       this._cardImage.addEventListener('click', () => {
         this._handleCardClick(this._name, this._link)
       });
+
+      // // Слушатель для корзины
+      // if(!this._isUserCard) {
+      //   this._buttonTrash.remove();
+      //   this._buttonTrash = null;
+      // } else {
+      //   this._element.querySelector('.element__trash').addEventListener('click', (evt) => {
+      //     this._handleTrashClick(evt);
+      //   });
+      // }
     };
   };
