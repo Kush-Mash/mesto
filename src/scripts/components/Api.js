@@ -8,68 +8,92 @@
 // GET https://nomoreparties.co/v1/cohortId/users/me
 
 export default class Api {
-
-  // // Без конструктора
-  // constructor(){
-
-  // }
-
-  // getInitialCards() {
-  //   const p = fetch('https://mesto.nomoreparties.co/v1/cohort-61/cards', {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       authorization: '545040d2-ca8d-4af4-bb28-cd05a11607d7'
-  //     }
-  //   });
-
-  //   return p.then((res) => {
-  //     if (res.ok) {
-  //       return res.json();
-  //     }
-  //     return Promise.reject(`Ошибка: ${res.status}`);
-  //   })
-  // }
-
-  // С конструктором
-  constructor(basePath, token) {
+  constructor({basePath, headers}) {
     this._basePath = basePath;
-    this._token = token;
+    this._headers = headers;
   }
 
-  _getHeaders() {
-    return {
-      'Content-Type': 'application/json',
-      authorization: this._token
-    };
+  _getJson(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getInitialCards() {
-    const p = fetch(`${this._basePath}/cards`, {
-      headers: this._getHeaders()
-    });
-
-    return p.then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+  getServerCards() {
+    return fetch(`${this._basePath}/cards`, {
+      headers: this._headers
+    })
+    .then(this._getJson)
+    .catch((err) => {
+      console.log(err);
+      return Promise.reject(err);
     })
   }
 
-  createUploadedCard(item) {
+  postNewCard(data) {
     return fetch(`${this._basePath}/cards`, {
       method: 'POST',
-      headers: {
-        authorization: '545040d2-ca8d-4af4-bb28-cd05a11607d7'
-      },
-      body: JSON.stringify(item),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link
+      }),
+    }).then(this._getJson);
   }
 
+  // Получить данные о пользователе
+  getCurrentUser() {
+    return fetch(`${this._basePath}/users/me`, {
+      headers: this._headers
+    })
+    .then(this._getJson);
+  }
+
+  // Обновить данные пользователя
+  updateUserInfo(data) {
+    return fetch(`${this._basePath}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: data.avatar
+      })
+    })
+    .then(this._getJson)
+  }
+
+  updateAvatar(data) {
+    return fetch(`${this._basePath}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: data.avatar
+      })
+    })
+    .then(this._getJson)
+  }
+
+  deleteCard(id) {
+    return fetch(`${this._basePath}/cards/${id}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then(this._getJson);
+  }
+
+  like(id) {
+    return fetch(`${this._basePath}/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: this._headers
+    })
+    .then(this._getJson)
+  }
+
+  dislike(id) {
+    return fetch(`${this._basePath}/cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then(this._getJson)
+  }
 }
 
