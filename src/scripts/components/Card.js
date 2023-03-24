@@ -37,9 +37,18 @@ export default class Card {
   _checkDeletion() {
     if (this._owner !== this._userId) {
        this._buttonTrash.remove();
+       this._buttonTrash = null;
     }
   }
-
+    // // Слушатель для корзины
+    // if(!this._isUserCard) {
+    //   this._buttonTrash.remove();
+    //   this._buttonTrash = null;
+    // } else {
+    //   this._element.querySelector('.element__trash').addEventListener('click', (evt) => {
+    //     this._handleTrashClick(evt);
+    //   });
+    // }
   _deleteCard() {
     this._element.remove(); // удаляется разметка из html
     this._element = null; // обнуляется сам объект карточки, чтобы не оставаться в памяти приложения и не потреблять ресурсы
@@ -57,24 +66,23 @@ export default class Card {
   handleLikeClick() {
     this._likes = data.likes;
     this._buttonLike.classList.toggle('element__group_active');
-    this._likeCounter.textContent = this._likes.length;
+    this._likesCounter.textContent = this._likes.length;
   };
 
+  _likeUser() {
+    if (this._likes.some((user) => {
+      return this._userId === user._id;
+    })) {
+      this._buttonLike.classList.add('element__group_active');
+   }
+  }
+
   _setEventListeners() {
-    this._buttonTrash.addEventListener('click', this._deleteCard);
-    this._buttonLike.addEventListener('click', this._handleLikeClick);
+    this._buttonTrash.addEventListener('click', this._handleTrashClick);
+    this._buttonLike.addEventListener('click', this._checkReactions);
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link)
     });
-    // // Слушатель для корзины
-    // if(!this._isUserCard) {
-    //   this._buttonTrash.remove();
-    //   this._buttonTrash = null;
-    // } else {
-    //   this._element.querySelector('.element__trash').addEventListener('click', (evt) => {
-    //     this._handleTrashClick(evt);
-    //   });
-    // }
   };
 
       // Наполнить темплейт содержимым
@@ -87,7 +95,9 @@ export default class Card {
     this._cardTitle = this._element.querySelector('.element__title');
     this._buttonLike = this._element.querySelector('.element__group');
     this._buttonTrash = this._element.querySelector('.element__trash');
+    this._likesCounter = this._element.querySelector('.element__counter');
 
+    this._likesCounter.textContent = this._likes.length;
     this._cardTitle.textContent = this._name;
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
@@ -97,6 +107,8 @@ export default class Card {
     // };
 
     this._setEventListeners();
+    this._checkReactions();
+    this._likeUser();
 
     return this._element;
   };
