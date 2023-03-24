@@ -139,9 +139,21 @@ const popupWithFormAvatar = new PopupWithForm({
   popupSelector: '.popup_modify_avatar',
   handleFormSubmit: (data) => {
     popupWithFormAvatar.showLoading(true);
-
+    api
+    .updateAvatar(data)
+    .then((data) => {
+      avatar.src = data.avatar;
+      popupWithFormAvatar.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupWithFormAvatar.showLoading(false);
+    });
   }
 })
+popupWithFormAvatar.setEventListeners();
 
 const popupWithConfirmation = new PopupWithConfirmation('.popup_modify_confirm');
 popupWithConfirmation.setEventListeners();
