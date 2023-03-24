@@ -49,7 +49,7 @@ export default class Card {
     //     this._handleTrashClick(evt);
     //   });
     // }
-  _deleteCard() {
+  deleteCard() {
     this._element.remove(); // удаляется разметка из html
     this._element = null; // обнуляется сам объект карточки, чтобы не оставаться в памяти приложения и не потреблять ресурсы
   };

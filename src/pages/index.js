@@ -31,7 +31,7 @@ Promise.all([
   console.log(ServerCards);
   console.log(user);
   currentUserId = user._id;
-  userInfo.setUserInfo(user);
+  profileUserInfo.setUserInfo(user);
   defaultCardList.renderItems(ServerCards); // сюда будут приходить карточки с сервера
 })
 .catch((err) => {
@@ -43,7 +43,7 @@ Promise.all([
 //   defaultCardList.renderItems(initialCards); // сюда будут приходить карточки с сервера
 // });
 
-function createCard(data) {
+const createCard = (data) => {
   const card = new Card({
     data: data,
     currentUserId: profileUserInfo.getUserId(),
@@ -69,7 +69,17 @@ function createCard(data) {
       });
     },
     handleTrashClick: () => {
-
+      popupWithConfirmation.open();
+      popupWithConfirmation.updateSubmitHandler(() => {
+        api.deleteCard(card.getId())
+        .then(() => {
+          card.deleteCard();
+          popupWithConfirmation.close();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      })
     }
   }, '.template-card');
   return card.generateCard();
@@ -82,7 +92,6 @@ const defaultCardList = new Section({
   },
 }, '.elements__box');
 
-
 const profileValidator = new FormValidator(validationConfig, popupFormUser);
 profileValidator.enableValidation();
 const сardValidator = new FormValidator(validationConfig, popupFormPlace);
@@ -90,6 +99,9 @@ const сardValidator = new FormValidator(validationConfig, popupFormPlace);
 
 const popupImage = new PopupWithImage('.popup_modify_image');
 popupImage.setEventListeners();
+
+const popupWithConfirmation = new PopupWithConfirmation('.popup_modify_confirm');
+popupWithConfirmation.setEventListeners();
 
 const profileUserInfo = new UserInfo({
   userNameSelector: '.profile__title',
@@ -100,18 +112,26 @@ const profileUserInfo = new UserInfo({
 const popupWithFormProfile = new PopupWithForm({
   popupSelector: '.popup_modify_user-info',
   handleFormSubmit: (data) => {
-    profileUserInfo.setUserInfo({
-      name: data.name,
-      job: data.job
-    });
-    popupWithFormProfile.close();
+    popupWithFormProfile.showLoading(true);
+    api.updateUserInfo(data)
+    .then((data) => {
+      console.log(data);
+      profileUserInfo.setUserInfo(data);
+      popupWithFormProfile.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupWithFormProfile.showLoading(false);
+    })
   }
 });
 popupWithFormProfile.setEventListeners();
 
 // Клик -> открытие попапа, заполнение инпутов
 buttonEdit.addEventListener('click', () => {
-  const profileData = profileUserInfo.getCurrentUser();
+  const profileData = profileUserInfo.getUserInfo();
   nameInput.value = profileData.name;
   jobInput.value = profileData.job;
   popupFormUser.reset();
@@ -155,8 +175,9 @@ const popupWithFormAvatar = new PopupWithForm({
 })
 popupWithFormAvatar.setEventListeners();
 
-const popupWithConfirmation = new PopupWithConfirmation('.popup_modify_confirm');
-popupWithConfirmation.setEventListeners();
+buttonAvatar.addEventListener('click', () => {
+  popupWithFormAvatar.open();
+});
 
 
 
