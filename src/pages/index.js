@@ -1,5 +1,5 @@
 import { buttonEdit, popupFormUser, nameInput, jobInput,
-  buttonAdd, popupFormPlace, validationConfig, buttonAvatar } from '../scripts/utils/constants.js';
+  buttonAdd, popupFormPlace, validationConfig, buttonAvatar, popupFormAvatar } from '../scripts/utils/constants.js';
 
 import Card from '../scripts/components/Card.js';
 import FormValidator from '../scripts/components/FormValidator.js';
@@ -43,6 +43,13 @@ Promise.all([
 //   defaultCardList.renderItems(initialCards); // сюда будут приходить карточки с сервера
 // });
 
+// Вставим карточки c сервера в DOM
+const defaultCardList = new Section({
+  renderer: (item) => {
+    defaultCardList.addItem(createCard(item));
+  },
+}, '.elements__box');
+
 const createCard = (data) => {
   const card = new Card({
     data: data,
@@ -60,7 +67,7 @@ const createCard = (data) => {
       });
     },
     handleDelLike: () => {
-      api.disLike(card.getId())
+      api.dislike(card.getId())
       .then((data) => {
         card.handleLikeClick(data);
       })
@@ -85,17 +92,12 @@ const createCard = (data) => {
   return card.generateCard();
 };
 
-// Вставим карточки c сервера в DOM
-const defaultCardList = new Section({
-  renderer: (item) => {
-    defaultCardList.addItem(createCard(item.name, item.link));
-  },
-}, '.elements__box');
-
 const profileValidator = new FormValidator(validationConfig, popupFormUser);
 profileValidator.enableValidation();
 const сardValidator = new FormValidator(validationConfig, popupFormPlace);
 сardValidator.enableValidation();
+const avatarValidator = new FormValidator(validationConfig, popupFormAvatar);
+avatarValidator.enableValidation();
 
 const popupImage = new PopupWithImage('.popup_modify_image');
 popupImage.setEventListeners();
@@ -141,10 +143,19 @@ buttonEdit.addEventListener('click', () => {
 
 const popupWithFormCard = new PopupWithForm({
   popupSelector: '.popup_modify_new-place',
-  handleFormSubmit: (item) => {
-    const newCard = createCard(item.name, item.link);
-    defaultCardList.addItem(newCard);
-    popupWithFormCard.close();
+  handleFormSubmit: (data) => {
+    popupWithFormCard.showLoading(true);
+    api.postNewCard(data)
+    .then((data) => {
+      defaultCardList.addItem(createCard(data));
+      popupWithFormCard.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupWithFormCard.showLoading(false);
+    })
   }
 });
 popupWithFormCard.setEventListeners();
@@ -162,7 +173,7 @@ const popupWithFormAvatar = new PopupWithForm({
     api
     .updateAvatar(data)
     .then((data) => {
-      avatar.src = data.avatar;
+      avatar.src = avatar;
       popupWithFormAvatar.close();
     })
     .catch((err) => {

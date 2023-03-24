@@ -52,16 +52,18 @@ export default class Api {
 
   // Обновить данные пользователя
   updateUserInfo(data) {
-    return fetch(`${this._basePath}/users/me/avatar`, {
+    return fetch(`${this._basePath}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: data.avatar
+        name: data.name,
+        about: data.job
       })
     })
     .then(this._getJson)
   }
 
+  // Обновить аватар
   updateAvatar(data) {
     return fetch(`${this._basePath}/users/me/avatar`, {
       method: 'PATCH',

@@ -6,6 +6,7 @@ const nameInput = popupUserInfo.querySelector('.popup__input_type_name');
 const jobInput = popupUserInfo.querySelector('.popup__input_type_job');
 const popupFormUser = document.forms['formAboutUser'];
 const popupFormPlace = document.forms['formAboutPlace'];
+const popupFormAvatar = document.forms['formAboutAvatar'];
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -17,5 +18,5 @@ const validationConfig = {
 };
 
 export { buttonEdit, popupFormUser, nameInput, jobInput,
-  buttonAdd, popupFormPlace, validationConfig, buttonAvatar };
+  buttonAdd, popupFormPlace, validationConfig, buttonAvatar, popupFormAvatar };
 

@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({data, currentUserId, handleCardClick, handleAddLike, handleDelLike, handleTrashClick}, templateSelector) { //handleTrashClick,
+  constructor({data, currentUserId, handleCardClick, handleAddLike, handleDelLike, handleTrashClick}, templateSelector) {
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
@@ -13,9 +13,6 @@ export default class Card {
     this._handleAddLike = handleAddLike;
     this._handleDelLike = handleDelLike;
     this._handleTrashClick = handleTrashClick;
-
-    this._deleteCard = this._deleteCard.bind(this);
-    this._handleLikeClick = this._handleLikeClick.bind(this);
   };
 
   // Клонировать и вернуть разметку формы
@@ -49,6 +46,7 @@ export default class Card {
     //     this._handleTrashClick(evt);
     //   });
     // }
+
   deleteCard() {
     this._element.remove(); // удаляется разметка из html
     this._element = null; // обнуляется сам объект карточки, чтобы не оставаться в памяти приложения и не потреблять ресурсы
@@ -63,7 +61,7 @@ export default class Card {
     }
   }
 
-  handleLikeClick() {
+  handleLikeClick(data) {
     this._likes = data.likes;
     this._buttonLike.classList.toggle('element__group_active');
     this._likesCounter.textContent = this._likes.length;
@@ -78,8 +76,12 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._buttonTrash.addEventListener('click', this._handleTrashClick);
-    this._buttonLike.addEventListener('click', this._checkReactions);
+    this._buttonTrash.addEventListener('click', () => {
+      this._handleTrashClick();
+    });
+    this._buttonLike.addEventListener('click', () => {
+      this._checkReactions();
+    });
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link)
     });
@@ -108,6 +110,7 @@ export default class Card {
 
     this._setEventListeners();
     this._checkReactions();
+    this._checkDeletion();
     this._likeUser();
 
     return this._element;
