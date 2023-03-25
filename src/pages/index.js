@@ -28,8 +28,6 @@ Promise.all([
   api.getCurrentUser()
 ])
 .then(([ServerCards, user]) => {
-  console.log(ServerCards);
-  console.log(user);
   currentUserId = user._id;
   profileUserInfo.setUserInfo(user);
   defaultCardList.renderItems(ServerCards); // сюда будут приходить карточки с сервера
@@ -45,24 +43,24 @@ const defaultCardList = new Section({
   },
 }, '.elements__box');
 
-function handleConfirmDelete(card) {
-  api.deleteCard(card.getId()) // card.getId()
+const handleConfirmDelete = (card) => {
+  api.deleteCard(card.getId())
   .then(() => {
     card.deleteCard();
-    popupWithConfirmation.close();
+    popupWithConfirmDelete.close();
   })
   .catch((err) => {
     console.log(err);
   });
 }
 
-const popupWithConfirmation = new PopupWithConfirmation('.popup_modify_confirm', handleConfirmDelete);
-popupWithConfirmation.setEventListeners();
+const popupWithConfirmDelete = new PopupWithConfirmation('.popup_modify_confirm', handleConfirmDelete);
+popupWithConfirmDelete.setEventListeners();
 
 const createCard = (data) => {
   const card = new Card({
     data: data,
-    currentUserId: profileUserInfo.getUserId(),
+    currentUserId: currentUserId,
     handleCardClick: () => {
       popupImage.open(data);
     },
@@ -85,8 +83,7 @@ const createCard = (data) => {
       });
     },
     handleTrashClick: () => {
-      popupWithConfirmation.open(card);
-      // popupWithConfirmation.handleConfirmDelete(card);
+      popupWithConfirmDelete.open(card);
     }
   }, '.template-card');
   return card.generateCard();
@@ -116,7 +113,6 @@ const popupWithFormProfile = new PopupWithForm({
     popupWithFormProfile.showLoading(true);
     api.updateUserInfo(data)
     .then((data) => {
-      console.log(data);
       profileUserInfo.setUserInfo(data);
       popupWithFormProfile.close();
     })
@@ -171,8 +167,8 @@ const popupWithFormAvatar = new PopupWithForm({
     popupWithFormAvatar.showLoading(true);
     api
     .updateAvatar(data)
-    .then((data) => {
-      avatar.src = avatar;
+    .then((res) => {
+      profileUserInfo.setUserInfo(res)
       popupWithFormAvatar.close();
     })
     .catch((err) => {
@@ -187,7 +183,6 @@ popupWithFormAvatar.setEventListeners();
 
 buttonAvatar.addEventListener('click', () => {
   popupWithFormAvatar.open();
+  popupFormAvatar.reset();
+  avatarValidator.resetValidation();
 });
-
-
-

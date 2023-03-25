@@ -1,5 +1,6 @@
 export default class Card {
   constructor({data, currentUserId, handleCardClick, handleAddLike, handleDelLike, handleTrashClick}, templateSelector) {
+    this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
@@ -44,7 +45,7 @@ export default class Card {
 
   // ставит/убирает <З
   _checkReactions() {
-    if (this._buttonLike.classList.contains('element__group_active')) {
+    if (this._buttonLike.classList.contains('element__toggle_active')) {
       this._handleDelLike(this._id);
     } else {
       this._handleAddLike(this._id);
@@ -53,7 +54,7 @@ export default class Card {
 
   handleLikeClick(data) {
     this._likes = data.likes;
-    this._buttonLike.classList.toggle('element__group_active');
+    this._buttonLike.classList.toggle('element__toggle_active');
     this._likesCounter.textContent = this._likes.length;
   };
 
@@ -61,7 +62,7 @@ export default class Card {
     if (this._likes.some((user) => {
       return this._userId === user._id;
     })) {
-      this._buttonLike.classList.add('element__group_active');
+      this._buttonLike.classList.add('element__toggle_active');
    }
   }
 
@@ -77,7 +78,7 @@ export default class Card {
     });
   };
 
-      // Наполнить темплейт содержимым
+  // Наполнить темплейт содержимым
   generateCard() {
     // Запишем разметку в приватное поле _element.
     // Так у других элементов появится доступ к ней.
@@ -85,23 +86,21 @@ export default class Card {
 
     this._cardImage = this._element.querySelector('.element__mask-group');
     this._cardTitle = this._element.querySelector('.element__title');
-    this._buttonLike = this._element.querySelector('.element__group');
+    this._buttonLike = this._element.querySelector('.element__toggle');
     this._buttonTrash = this._element.querySelector('.element__trash');
     this._likesCounter = this._element.querySelector('.element__counter');
-
+    this._likes.forEach((el) => {
+      if (el._id === this._userId) {
+        this._buttonLike.classList.add('element__toggle_active');
+      }
+    })
     this._likesCounter.textContent = this._likes.length;
     this._cardTitle.textContent = this._name;
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
 
-    // if (!this._isOwner) {
-    //   this._element.querySelector('.popup__close-button').remove();
-    // };
-
     this._setEventListeners();
-    // this._checkReactions();
     this._checkDeletion();
-    // this._likeUser();
 
     return this._element;
   };
