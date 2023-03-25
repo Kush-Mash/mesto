@@ -11,8 +11,9 @@ export default class Section {
   };
 
   renderItems(items) { // items сюда будут приходить карточки с сервера
-    items.forEach((item) => { // вместо начальных this._renderedItems поставили карточки с сервера - items
+    items.reverse().forEach((item) => { // вместо начальных this._renderedItems поставили карточки с сервера - items
       this._renderer(item);
     });
   };
 };
+
