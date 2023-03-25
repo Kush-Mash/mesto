@@ -24,11 +24,11 @@ export default class Card {
       .cloneNode(true);
 
     return cardElement;
-  };
+  }
 
   getId() {
     return this._id;
-  }
+  };
 
   // убирает корзину с чужих карточек
   _checkDeletion() {
