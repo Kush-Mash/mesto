@@ -1,23 +1,27 @@
 import Popup from './Popup.js';
 
 export default class PopupWithConfirmation extends Popup {
-  constructor(popupSelector) {
+  constructor(popupSelector, handleConfirmDelete) {
     super(popupSelector);
     this._formElement = this._popup.querySelector('.popup__form');
+    this._cardObject = {};
+    this.handleConfirmDelete = handleConfirmDelete;
   };
 
-  // func - колбек на удаление карточки
-  updateSubmitHandler(func) {
-    this._handleSubmit = func;
-  };
+  open(card) {
+    super.open();
+    this._cardObject = card;
+  }
+
+  // handleConfirmDelete(callback) {
+  //   this._handleConfirmCallback = callback;
+  // }
 
   setEventListeners() {
     super.setEventListeners();
     this._formElement.addEventListener('submit', evt => {
       evt.preventDefault();
-      this._handleSubmit();
+      this.handleConfirmDelete(this._cardObject);
     });
   }
-
-
 }

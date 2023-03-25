@@ -8,7 +8,6 @@ export default class Card {
     this._likes = data.likes;
     this._templateSelector = templateSelector;
 
-    // this._isOwner = data.owner._id === currentUserId; // 1) создатель карточки 2) id пользователя сейчас
     this._handleCardClick = handleCardClick;
     this._handleAddLike = handleAddLike;
     this._handleDelLike = handleDelLike;
@@ -37,15 +36,6 @@ export default class Card {
        this._buttonTrash = null;
     }
   }
-    // // Слушатель для корзины
-    // if(!this._isUserCard) {
-    //   this._buttonTrash.remove();
-    //   this._buttonTrash = null;
-    // } else {
-    //   this._element.querySelector('.element__trash').addEventListener('click', (evt) => {
-    //     this._handleTrashClick(evt);
-    //   });
-    // }
 
   deleteCard() {
     this._element.remove(); // удаляется разметка из html
@@ -109,9 +99,9 @@ export default class Card {
     // };
 
     this._setEventListeners();
-    this._checkReactions();
+    // this._checkReactions();
     this._checkDeletion();
-    this._likeUser();
+    // this._likeUser();
 
     return this._element;
   };

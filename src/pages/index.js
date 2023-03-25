@@ -38,17 +38,26 @@ Promise.all([
   console.log(err);
 });
 
-// api.getInitialCards().then((initialCards) => {
-//   console.log(initialCards);
-//   defaultCardList.renderItems(initialCards); // сюда будут приходить карточки с сервера
-// });
-
 // Вставим карточки c сервера в DOM
 const defaultCardList = new Section({
   renderer: (item) => {
     defaultCardList.addItem(createCard(item));
   },
 }, '.elements__box');
+
+function handleConfirmDelete(card) {
+  api.deleteCard(card.getId()) // card.getId()
+  .then(() => {
+    card.deleteCard();
+    popupWithConfirmation.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}
+
+const popupWithConfirmation = new PopupWithConfirmation('.popup_modify_confirm', handleConfirmDelete);
+popupWithConfirmation.setEventListeners();
 
 const createCard = (data) => {
   const card = new Card({
@@ -76,17 +85,8 @@ const createCard = (data) => {
       });
     },
     handleTrashClick: () => {
-      popupWithConfirmation.open();
-      popupWithConfirmation.updateSubmitHandler(() => {
-        api.deleteCard(card.getId())
-        .then(() => {
-          card.deleteCard();
-          popupWithConfirmation.close();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      })
+      popupWithConfirmation.open(card);
+      // popupWithConfirmation.handleConfirmDelete(card);
     }
   }, '.template-card');
   return card.generateCard();
@@ -102,8 +102,7 @@ avatarValidator.enableValidation();
 const popupImage = new PopupWithImage('.popup_modify_image');
 popupImage.setEventListeners();
 
-const popupWithConfirmation = new PopupWithConfirmation('.popup_modify_confirm');
-popupWithConfirmation.setEventListeners();
+
 
 const profileUserInfo = new UserInfo({
   userNameSelector: '.profile__title',
