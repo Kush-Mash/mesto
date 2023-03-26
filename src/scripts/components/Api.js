@@ -24,11 +24,7 @@ export default class Api {
     return fetch(`${this._basePath}/cards`, {
       headers: this._headers
     })
-    .then(this._getJson)
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject(err);
-    })
+    .then(this._getJson);
   }
 
   postNewCard(data) {

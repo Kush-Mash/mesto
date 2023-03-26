@@ -27,10 +27,10 @@ Promise.all([
   api.getServerCards(),
   api.getCurrentUser()
 ])
-.then(([ServerCards, user]) => {
+.then(([serverCards, user]) => {
   currentUserId = user._id;
   profileUserInfo.setUserInfo(user);
-  defaultCardList.renderItems(ServerCards); // сюда будут приходить карточки с сервера
+  defaultCardList.renderItems(serverCards); // сюда будут приходить карточки с сервера
 })
 .catch((err) => {
   console.log(err);
@@ -53,9 +53,6 @@ const handleConfirmDelete = (card) => {
     console.log(err);
   });
 }
-
-const popupWithConfirmDelete = new PopupWithConfirmation('.popup_modify_confirm', handleConfirmDelete);
-popupWithConfirmDelete.setEventListeners();
 
 const createCard = (data) => {
   const card = new Card({
@@ -96,6 +93,8 @@ const сardValidator = new FormValidator(validationConfig, popupFormPlace);
 const avatarValidator = new FormValidator(validationConfig, popupFormAvatar);
 avatarValidator.enableValidation();
 
+const popupWithConfirmDelete = new PopupWithConfirmation('.popup_modify_confirm', handleConfirmDelete);
+popupWithConfirmDelete.setEventListeners();
 const popupImage = new PopupWithImage('.popup_modify_image');
 popupImage.setEventListeners();
 
@@ -131,7 +130,6 @@ buttonEdit.addEventListener('click', () => {
   const profileData = profileUserInfo.getUserInfo();
   nameInput.value = profileData.name;
   jobInput.value = profileData.job;
-  popupFormUser.reset();
   profileValidator.resetValidation();
   popupWithFormProfile.open();
 });
@@ -143,6 +141,7 @@ const popupWithFormCard = new PopupWithForm({
     api.postNewCard(data)
     .then((data) => {
       defaultCardList.addItem(createCard(data));
+      // закрытие после удачного ответа от сервера
       popupWithFormCard.close();
     })
     .catch((err) => {
@@ -156,7 +155,6 @@ const popupWithFormCard = new PopupWithForm({
 popupWithFormCard.setEventListeners();
 
 buttonAdd.addEventListener('click', () => {
-  popupFormPlace.reset();
   сardValidator.resetValidation();
   popupWithFormCard.open();
 });
@@ -183,6 +181,5 @@ popupWithFormAvatar.setEventListeners();
 
 buttonAvatar.addEventListener('click', () => {
   popupWithFormAvatar.open();
-  popupFormAvatar.reset();
   avatarValidator.resetValidation();
 });

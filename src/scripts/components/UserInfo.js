@@ -19,11 +19,11 @@ export default class UserInfo {
     return this._id;
   }
 
-  // Данные с сервера подставляем в профиль
-  setUserInfo(data) {
-    this._userName.textContent = data.name;
-    this._userJob.textContent = data.about;
-    this._avatar.src = data.avatar;
-    this._id = data._id;
-  };
+  // // Данные с сервера подставляем в профиль
+  setUserInfo( { name, about, avatar, _id } ) {
+    this._userName.textContent = name;
+    this._userJob.textContent = about;
+    this._avatar.src = avatar;
+    this._id = _id;
+  }
 };
